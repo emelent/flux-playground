@@ -12,7 +12,8 @@ public class CounterReducer
     ) => state with
     {
         Count = state.Count + 1,
-        Loading = false
+        Loading = false,
+        ErrorMessage = string.Empty
     };
 
     [ReducerMethod]
@@ -22,6 +23,28 @@ public class CounterReducer
     ) => state with
     {
         Count = state.Count - 1,
+        Loading = false,
+        ErrorMessage = string.Empty
+    };
+
+
+    [ReducerMethod]
+    public static CounterState ReduceCounterDecrementFailedAction(
+        CounterState state,
+        CounterDecrementFailedAction action
+    ) => state with
+    {
+        ErrorMessage = action.ErrorMessage,
+        Loading = false
+    };
+
+    [ReducerMethod]
+    public static CounterState ReduceCounterIncrementFailedAction(
+        CounterState state,
+        CounterIncrementFailedAction action
+    ) => state with
+    {
+        ErrorMessage = action.ErrorMessage,
         Loading = false
     };
 }

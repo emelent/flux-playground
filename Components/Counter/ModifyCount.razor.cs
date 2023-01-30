@@ -12,8 +12,16 @@ public partial class ModifyCount
         IDispatcher dispatcher
     )
     {
-        await Task.Delay(1000);
-        dispatcher.Dispatch(new CounterIncrementedAction());
+        await Task.Delay(600);
+        var random = new Random();
+        var isSuccessful = random.Next(1, 11) > 5;
+        if(isSuccessful) {
+            dispatcher.Dispatch(new CounterIncrementedAction());
+        } else {
+            dispatcher.Dispatch(new CounterIncrementFailedAction(
+                ErrorMessage: "Tough luck, try again... if you dare."
+            ));
+        }
     }
 
     [EffectMethod(typeof(CounterDecrementButtonClickedAction))]
@@ -21,8 +29,17 @@ public partial class ModifyCount
         IDispatcher dispatcher
     )
     {
-        await Task.Delay(1000);
-        dispatcher.Dispatch(new CounterDecrementedAction());
+        await Task.Delay(600);
+
+        var random = new Random();
+        var isSuccessful = random.Next(1, 11) > 5;
+        if(isSuccessful) {
+            dispatcher.Dispatch(new CounterDecrementedAction());
+        } else {
+            dispatcher.Dispatch(new CounterDecrementFailedAction(
+                ErrorMessage: "Tough luck, try again... if you dare."
+            ));
+        }
     }
 
     #endregion
