@@ -1,0 +1,14 @@
+@using FluxorSample.Data.Counter
+@using Fluxor
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@inject IState<CounterState> _counterState
+
+@if(counterState.Loading) {
+    <h3>Loading...</h3>
+} else {
+    <h3>Counter: @counterState.Count</h3>
+}
+@code {
+    
+private CounterState counterState => _counterState.Value;
+}

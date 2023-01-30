@@ -1,0 +1,16 @@
+@using FluxorSample.Data.User
+@using Fluxor
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@inject IState<UserState> _userState
+
+
+<input type="text" @bind="Name">
+<button>Update</button>
+
+@code {
+
+    public record UpdateButtonClickedAction();
+
+    public string Name {get; set;} = null!;
+
+}
