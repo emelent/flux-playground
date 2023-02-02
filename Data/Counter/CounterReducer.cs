@@ -8,43 +8,22 @@ public class CounterReducer
     [ReducerMethod]
     public static CounterState ReduceCounterIncrementedAction(
         CounterState state,
-        CounterIncrementedAction action
+        CounterUpdatedAction action
     ) => state with
     {
-        Count = state.Count + 1,
-        Loading = false,
-        ErrorMessage = string.Empty
-    };
-
-    [ReducerMethod]
-    public static CounterState ReduceCounterDecrementedAction(
-        CounterState state,
-        CounterDecrementedAction action
-    ) => state with
-    {
-        Count = state.Count - 1,
+        Count = action.Value,
         Loading = false,
         ErrorMessage = string.Empty
     };
 
 
     [ReducerMethod]
-    public static CounterState ReduceCounterDecrementFailedAction(
+    public static CounterState ReduceCounterUpdateFailedAction(
         CounterState state,
-        CounterDecrementFailedAction action
+        CounterUpdateFailedAction action
     ) => state with
     {
-        ErrorMessage = action.ErrorMessage,
-        Loading = false
-    };
-
-    [ReducerMethod]
-    public static CounterState ReduceCounterIncrementFailedAction(
-        CounterState state,
-        CounterIncrementFailedAction action
-    ) => state with
-    {
-        ErrorMessage = action.ErrorMessage,
-        Loading = false
+        Loading = false,
+        ErrorMessage = action.ErrorMessage
     };
 }

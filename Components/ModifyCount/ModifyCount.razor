@@ -1,0 +1,39 @@
+@using Fluxor
+@using FluxorSample.Data.Counter
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@inject IDispatcher Dispatcher
+@inject IState<CounterState> _counterState
+
+<div class="modify-container">
+    <button
+        disabled="@(counterState.Loading)"
+        @onclick="() => Dispatcher.Dispatch(new CounterIncrementButtonClickedAction())">
+        Increment
+    </button>
+    <button
+        disabled="@(counterState.Loading)"
+        @onclick="() => Dispatcher.Dispatch(new CounterDecrementButtonClickedAction())">
+        Decrement
+    </button>
+    @if (counterState.ErrorMessage != string.Empty)
+    {
+        <div style="color: red;">
+            Failed: @counterState.ErrorMessage
+        </div>
+    }
+</div>
+
+@code {
+
+    public record CounterIncrementButtonClickedAction;
+
+    public record CounterDecrementButtonClickedAction;
+
+    private CounterState counterState => _counterState.Value;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+}
