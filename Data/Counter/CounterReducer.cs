@@ -6,7 +6,7 @@ public class CounterReducer
 {
 
     [ReducerMethod]
-    public static CounterState ReduceCounterIncrementedAction(
+    public static CounterState ReduceCounterUpdatedAction(
         CounterState state,
         CounterUpdatedAction action
     ) => state with
