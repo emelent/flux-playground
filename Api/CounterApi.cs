@@ -41,7 +41,7 @@ public class CounterApi
 
         await Task.Delay(600);
         var random = new Random();
-        var isSuccessful = random.NextDouble() > successRate;
+        var isSuccessful = random.NextDouble() > (1.0 - successRate);
         if (isSuccessful)
         {
             _counter--;

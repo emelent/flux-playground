@@ -4,7 +4,6 @@
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 @inject IDispatcher _dispatcher
 @inject IState<CounterState> _counterState
-@inject CounterApi _counterApi
 
 @if(counterState.Loading) {
     <h3>Loading...</h3>

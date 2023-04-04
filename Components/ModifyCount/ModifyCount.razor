@@ -1,18 +1,31 @@
 @using Fluxor
+@using FluxorSample.Data
 @using FluxorSample.Data.Counter
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 @inject IDispatcher Dispatcher
 @inject IState<CounterState> _counterState
 
 <div class="modify-container">
+    <label for="chanceOfSuccess">Chance of Success:</label>
+    <input 
+        name="chanceOfSuccess"
+        type="number"
+        @bind="ChanceOfSuccess"
+        placeholder="Chance of successs"
+        min="0.0"
+        max="1.0"
+        step="0.1"
+    >
+    <br/>
+    <br/>
     <button
         disabled="@(counterState.Loading)"
-        @onclick="() => Dispatcher.Dispatch(new CounterIncrementButtonClickedAction())">
+        @onclick="Increment">
         Increment
     </button>
     <button
         disabled="@(counterState.Loading)"
-        @onclick="() => Dispatcher.Dispatch(new CounterDecrementButtonClickedAction())">
+        @onclick="Decrement">
         Decrement
     </button>
     @if (counterState.ErrorMessage != string.Empty)
@@ -25,15 +38,22 @@
 
 @code {
 
-    public record CounterIncrementButtonClickedAction;
 
-    public record CounterDecrementButtonClickedAction;
-
+    private double ChanceOfSuccess { get; set; } = 0.8;
     private CounterState counterState => _counterState.Value;
 
-    protected override async Task OnInitializedAsync()
+    private void Decrement()
     {
-        await base.OnInitializedAsync();
+        Dispatcher.Dispatch(new CounterDecrement<RequestedAction<double>>(
+            new RequestedAction<double>(ChanceOfSuccess)
+        ));
     }
 
+
+    private void Increment()
+    {
+        Dispatcher.Dispatch(new CounterIncrement<RequestedAction<double>>(
+            new RequestedAction<double>(ChanceOfSuccess)
+        ));
+    }
 }
